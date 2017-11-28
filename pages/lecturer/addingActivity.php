@@ -3,7 +3,7 @@
 	include ('../../phpScript/connection.php');
 	include ('../../phpScript/startSession.php');
 	include ('../../phpScript/signedIn.php');
-
+	echo $_GET['addType'];
 
 
 	if(isset($_GET['submit'])){
@@ -11,7 +11,7 @@
 		$GLOBALS['topic']  = $_GET['topic'];
 		$GLOBALS['courseTitle'] = $_GET['courseTitle'];
 		$GLOBALS['addType'] =$_GET['addType'];
-		if($addType=='assignment'){
+		if($addType=='assignments'){
 			$GLOBALS['act']='1';
 		}else{
 			$GLOBALS['act']='2';
@@ -38,15 +38,15 @@
 			}
 			if($_FILES['upfile']['name'] != ""){
 				$oldname = $_FILES['upfile']['tmp_name'];
-				$dir="../../uploads\\".$addType."\\".$codeCourse;
+				$dir="../../upload\\".$addType."\\".$codeCourse;
 				
 						
 			if(!file_exists($dir)){
 				mkdir($dir, 077, true);
 			}
-			$newname = "../../uploads"."\\".$addType."\\".$codeCourse."\\" .$_FILES['upfile']['name'];
+			$newname = "../../upload"."\\".$addType."\\".$codeCourse."\\" .$_FILES['upfile']['name'];
 				move_uploaded_file($oldname, $newname);
-				$dirname = "../../uploads"."\\\\".$addType."\\\\".$codeCourse."\\\\" .$_FILES['upfile']['name'];
+				$dirname = "../../upload"."\\\\".$addType."\\\\".$codeCourse."\\\\" .$_FILES['upfile']['name'];
 
 			}
 			else{
@@ -57,15 +57,15 @@
 		else{ 
 			if($_FILES['upfile']['name'] != ""){
 				$oldname = $_FILES['upfile']['tmp_name'];
-				$dir="../../uploads\\".$addType."\\".$codeCourse;
+				$dir="../../upload\\".$addType."\\".$codeCourse;
 
 			
 				if(!file_exists($dir)){
 					mkdir($dir, 077, true);
 				}
-				$newname = "../../uploads"."\\".$addType."\\".$codeCourse."\\" .$_FILES['upfile']['name'];
+				$newname = "../../upload"."\\".$addType."\\".$codeCourse."\\" .$_FILES['upfile']['name'];
 				move_uploaded_file($oldname, $newname);
-				$dirname = "../../uploads"."\\\\".$addType."\\\\".$codeCourse."\\\\" .$_FILES['upfile']['name'];
+				$dirname = "../../upload"."\\\\".$addType."\\\\".$codeCourse."\\\\" .$_FILES['upfile']['name'];
 			}
 			else{
 				$dirname = "";
@@ -139,7 +139,7 @@
 						</div>
 						
 						<?php
-							if($addType== "assignment"){
+							if($addType== "assignments"){
 								echo "<div class='w3-container w3-margin-bottom'>";
 								echo "<fieldset>";
 								echo "<legend><button class='w3-button w3-black' id='btnAvailibility'>Availability <i class='fa fa-caret-down' aria-hidden='true'></i></button></legend>";

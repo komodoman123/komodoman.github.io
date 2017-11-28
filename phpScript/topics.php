@@ -26,7 +26,7 @@ if(isset($_GET['id'])){
 
                 if($arr[$j]['topic']==$i){
                     if($arr[$j]['ID_AT']==2){
-                        echo " <a href=".$arr[$j]['fileDir']." download=''><p class='w3-text-black'><i class='fa fa-file' aria-hidden='true'></i>&nbsp;".$arr[$j]['title']."</p></a>";
+                        echo " <a href=".$arr[$j]['fileDir']." download><p class='w3-text-black'><i class='fa fa-file' aria-hidden='true'></i>&nbsp;".$arr[$j]['title']."</p></a>";
                     }
                     else{
                         echo "<a href= '../student/submission.php?id=".$arr[$j]['ID_A']."&courseCode=".$id."&actTitle=".$arr[$j]['title']."'><p class='w3-text-black'><i class='fa fa-pencil' aria-hidden='true'></i>&nbsp;".$arr[$j]['title']."</p></a>";
