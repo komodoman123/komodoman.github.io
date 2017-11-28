@@ -8,7 +8,7 @@
   }
 ?>
 
-<div class="w3-light-grey w3-bar-block w3-padding w3-sidenav" style="height:100%;width:25%">
+<div class="w3-light-grey w3-bar-block w3-padding" style="height:100%;width:25%;position:absolute">
     <span>You are logged in as</span>
     <br><br>
     <span><strong><?php echo $_SESSION['userID']?></strong></span>
