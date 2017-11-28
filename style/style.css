@@ -1,0 +1,46 @@
+@font-face {
+    font-family: candara;
+    src: url(../fonts/Candara.ttf);
+}
+
+#bg {
+    height : 100%;
+    width : 100%;
+}
+
+#logo{
+    width:150px;
+    height:150px;
+    margin-right:100px;
+    margin-top:10px;
+    float:right;
+}
+
+p, h1, span,a{
+    color:black;
+    font-family: candara;
+}
+
+#judul{
+    float:left;
+}
+
+#judul h1,p{
+    color:white;
+}
+
+#profilepict{
+    height:75px;
+    width:75px;
+    border:1px solid lightgray;
+}
+div.sidebar{
+    margin-top : 15%;
+    width: 24%;
+    height :100%; 
+    background-color : lightgrey;;
+    color : black;
+    padding : 2%;
+    padding-bottom : 20%; 
+    float : left;
+}
