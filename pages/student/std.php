@@ -36,7 +36,7 @@
 				include ('../../layout/sidebar.php');
 			?>
 			<div class="w3-panel w3-grey" style="margin:10px;margin-left:26%">
-				<p class="w3-xlarge w3-text-black">Course overview</p>
+				<p class="w3-xlarge w3-text-black">COURSE OVERVIEW</p>
 			</div> 
 			
 			<?php

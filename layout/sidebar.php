@@ -8,14 +8,14 @@
   }
 ?>
 
-<div class="w3-sidenav w3-light-grey w3-bar-block " style="width:25%;padding-left:20px;padding-top:30px;position:absolute">
+<div class="w3-light-grey w3-bar-block w3-padding w3-sidenav" style="height:100%;width:25%">
     <span>You are logged in as</span>
     <br><br>
     <span><strong><?php echo $_SESSION['userID']?></strong></span>
     <br>
     <span><strong><?php echo $_SESSION['name']?></strong></span>
     <br>
-    <hr>
+    <hr style="height:3px" class="w3-theme-l3">
     <img src="../../img/profile.png" alt="" id="profilepict"><br>
     <a href="<?php echo $link ?>" class="w3-bar-item w3-button"><i class="fa fa-home" aria-hidden="true"></i>  HOME</a> 
     <a href="#" class="w3-bar-item w3-button"><i class="fa fa-list-ul" aria-hidden="true"></i>  MY COURSES</a> 
