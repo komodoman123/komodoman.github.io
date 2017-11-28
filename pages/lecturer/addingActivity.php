@@ -54,7 +54,7 @@
 			}
 			$query = "INSERT INTO activities (ID_A, ID_AT, ID_C, dateOpen, dateClose, submissions, title, topic, fileDir) VALUES('', '$act', '$courseID', '$start', '$end', '0', '$name', '$topic', '$dirname')";
 		}
-		else{
+		else{ 
 			if($_FILES['upfile']['name'] != ""){
 				$oldname = $_FILES['upfile']['tmp_name'];
 				$dir="../../uploads\\".$addType."\\".$codeCourse;
