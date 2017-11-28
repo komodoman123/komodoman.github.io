@@ -29,7 +29,7 @@ if(isset($_GET['id'])){
                         echo "<a href=".$arr[$j]['fileDir']." download=''><p class='w3-text-black'>".$arr[$j]['title']."</p></a>";
                     }
                     else{
-                        echo "<a href= 'submission.php?id=".$actID."&courseCode=".$id."'><p>".$row['title']."</p></a>";
+                        echo "<a href= 'submission.php?id='".$arr[$j]['ID_A']."&courseCode=".$id."'><p class='w3-text-black'>".$arr[$j]['title']."</p></a>";
                          
                     }
                    
