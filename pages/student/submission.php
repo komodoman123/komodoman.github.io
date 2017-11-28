@@ -3,7 +3,9 @@
 	include "../../phpScript/connection.php";
 	include "../../phpScript/startSession.php";
 	
+	$GLOBALS['submitted']=false;
 	if(isset($_POST['submitFile'])){
+		$GLOBALS['submitted']=true;
 		if(file_exists($_FILES['submissionUp']['tmp_name'])){
 			$courseCode = $_SESSION['courseCode'];
 			$activity = $_SESSION['actId'];
@@ -99,83 +101,109 @@
 		?>
 		<div class="w3-main">
 			<!-- include sidebar -->
+			
 			<?php
 				include "../../layout/sidebar.php";
 			?>
-			<div class = "w3-main-content"  style = "margin-top : -45.4%; margin-left: 10%">
-					<?php
-						$idA = $_GET['id'];
-						$query1 = "SELECT * FROM activities where ID_A = $idA";
-						$query2 = "SELECT * FROM submissions where ID_A = $idA AND ID_U = ".$_SESSION['id']."";
-						$res1 = $conn -> query($query1);
-						$res2 = $conn -> query($query2);
-						$row1 = $res1 -> fetch_array();
-						$row2 = $res2 -> fetch_array();
-						echo "<div class='w3-panel w3-gray titleCourse'>";
-                        echo "<h3>".$row1['title']."</h3>";
-                        echo "</div>";
-                        if($row1['fileDir'] != ""){
-	                        $path = $row1['fileDir'];
-	                        echo "</br><p class='itemCourse'><a href= '$path' download>".$row1['title']."</a></p>";
+				<?php
+					    echo "<div class='w3-panel w3-grey' style='margin:10px;margin-left:26%'>";
+						echo "<h3>".$_GET['actTitle']."</h3>";
+						echo "</div>";
+						$idAct = $_GET['id'];
+						$actTitle=$_GET['actTitle'];
+						$query = "SELECT * FROM activities where ID_A = $idAct";
+						$res = $conn -> query($query);
+						$row = $res -> fetch_array();
+						
+						
+						
+                        if($row['fileDir'] != ""){
+							echo "<a href=".$row['fileDir']." download='' style='margin-left:26%'><p class='w3-text-black'><i class='fa fa-file' aria-hidden='true'></i>&nbsp;".$row['title']."</p></a>";
 	                    }
-	                    echo "<table border = 2>";
+	                    echo "<table class='w3-table w3-bordered' style='margin-left:26%'>";
 	                    echo "<tr>";
-	                    echo "<th>Due Date</th>";
-	                    echo "<td>".$row1['dateClose']."</td>";
-	                    echo "</tr>";
-	                    $num = count($row2);
-	                    if($num > 0){
+						echo "<td class='w3-border-right'>Submission status</td>";
+						if($submitted==true){
+							echo "<td>Submitted for grading</td>";
+						}
+						else{
+							echo "<td>no submit</td>";
+						}
+						echo "</tr>";
+						echo "<tr>";
+						echo "<td class='w3-border-right'>Due date</td>";
+						echo "<td>".$row['dateClose']."</td>";
+						echo "</tr>";
+
+						$now = new DateTime();
+						$close_date = new DateTime($row['dateClose']);
+						
+						$interval = $close_date->diff($now);
+					
+						 $interval->format("%h hours, %i minutes, %s seconds");
+						
+
+						echo "<tr>";
+						echo "<td class='w3-border-right'>Time Remaining</td>";
+						echo "<td>". $interval->format(" %a day,%h hours, %i minutes, %s seconds")."</td>";
+						echo "</tr>";
+						
+						$query = "SELECT * FROM submissions where ID_A = $idAct AND ID_U = ".$_SESSION['id']."";
+						$res = $conn -> query($query);
+						$row = $res -> fetch_array();
+
+	                    $submission = count($row);
+	                    if($submission > 0){
 		                    echo "<tr>";
-		                    echo "<th>File submissions</th>";
-		                    echo "<td>".$row2['submitTime']."</td>";
+		                    echo "<td class='w3-border-right'>Last Modified</td>";
+		                    echo "<td>".$row['submitTime']."</td>";
 		                    echo "</tr>";
-		                    echo "<tr>";
-		                    $path = $row2['fileDirectory'];
-		                    echo "<td colspan = 2><a href= '$path' download>Submission</a></td>";
+		                    
+						    echo "<tr>";
+		                    echo "<td class='w3-border-right'>File Submission</td>";
+		                    echo "<td><a href= '".$row['fileDirectory']."' download=''><i class='fa fa-file' aria-hidden='true'></i>&nbsp; Your Submission</a></td>";
 		                    echo "</tr>";
-		                    echo "</table>";
-		                    echo "<button class = 'w3-btn editBtn'>Edit Submissions</button>";
+							echo "</table>";
+							echo "<br>";
+		                    echo "<button onclick="."document.getElementById('submitModal').style.display='block'"." class = 'w3-btn'  style='margin-left:26%'>Edit Submission</button>";
 		                }
 		                else{
-		                	echo "</table>";
-		                	echo "<button class = 'w3-btn submitBtn'>Add Submissions</button>";
-		                	/*echo "<form method = 'post' action = 'submissions.php' enctype='multipart/form-data'>";
-	                    	echo "<p>Upload files</p><br><input type = 'file' name = 'fileUp' id = 'fileUp'>";
-	                    	echo "</form>";*/
+							echo "</table>";
+							echo "<br>";
+		                	echo "<button onclick="."document.getElementById('submitModal').style.display='block'"." class = 'w3-btn'  style='margin-left:26%'>Add Submission</button>";
+		                	
 		                }
 					?>
-					<div class = "w3-modal add-modal" id = "addFile">
-						<div class = "w3-modal-content" style = "padding: 10px">
-							<span class = "close">&times;</span>
-								<form method = 'post' action = 'submission.php' enctype='multipart/form-data'>
-				                    <p>Upload files</p><br>
-				                    <input type = 'file' name = 'submissionUp' id = 'submissionUp'><br>
-				                    <input class = 'w3-btn' type = 'submit' name = 'submitFile' value = 'Submit File'>
-							</form>
-						</div>
+
+					<div id="submitModal" class="w3-modal" >
+							<div class="w3-modal-content ">
+								<div id="modal" class="w3-container " style="padding-top: 16px; padding-bottom: 16px;">
+								<span onclick="document.getElementById('submitModal').style.display='none'"class="w3-button w3-display-topright" style="margin-right:10px">&times;</span>
+
+								
+								<?php 
+								if ($submitted==false){
+									echo "<h3>Submit file</h3>";
+								}
+								else {
+									echo "<h3>Edit Submission</h3>";
+								}
+								?>
+								
+								<form method="post" action = 'submission.php' class="w3-container" enctype='multipart/form-data'>
+								<p>Upload files</p><br>
+								<input type = 'file' name = 'submitUp' id = 'submitUp'>
+								<br>
+								<hr>
+								<input class = 'w3-btn' type = 'submit' name = 'submitFile' value = 'Submit File'>
+								</form>
+								
+							</div>
 					</div>
-					<div class = "w3-modal add-modal" id = "editFile">
-						<div class = "w3-modal-content" style = "padding: 10px">
-							<span class = "close">&times;</span>
-								<form method = 'post' action = 'submission.php' enctype='multipart/form-data'>
-				                    <p>Upload files</p><br>
-				                    <input type = 'file' name = 'submissionUp' id = 'submissionUp'><br>
-				                    <input class = 'w3-btn' type = 'submit' name = 'editFile' value = 'Submit File'>
-							</form>
-						</div>
-					</div>
-			</div>
+					
+					
+			
 		</div>
 	</body>
-	<script>
-		$('body').on('click', '.submitBtn', function(){
-			$('#addFile').modal('show');
-		});
-		$('body').on('click', '.editBtn', function(){
-			$('#editFile').modal('show');
-		});
-		$('span').click(function(){
-			$('.add-modal').modal('hide');
-		})
-	</script>
+	
 </html>

@@ -21,15 +21,15 @@ if(isset($_GET['id'])){
     $arrlength = count($arr);
    
     for($i=1; $i<=10; $i++){
-        echo "<div class='w3-panel w3-card w3-white' style='margin:10px;margin-left:26%'>  <p class='w3-text-black'><i class='fa fa-newspaper-o'></i> TOPIC $i</p>";
+        echo "<div class='w3-panel w3-card w3-white' style='margin:10px;margin-left:26%'>  <p class='w3-text-black'><i class='fa fa-newspaper-o'></i>&nbsp; TOPIC $i</p>";
         for($j=1; $j<=$arrlength; $j++){
 
                 if($arr[$j]['topic']==$i){
                     if($arr[$j]['ID_AT']==2){
-                        echo "<a href=".$arr[$j]['fileDir']." download=''><p class='w3-text-black'>".$arr[$j]['title']."</p></a>";
+                        echo " <a href=".$arr[$j]['fileDir']." download=''><p class='w3-text-black'><i class='fa fa-file' aria-hidden='true'></i>&nbsp;".$arr[$j]['title']."</p></a>";
                     }
                     else{
-                        echo "<a href= 'submission.php?id='".$arr[$j]['ID_A']."&courseCode=".$id."'><p class='w3-text-black'>".$arr[$j]['title']."</p></a>";
+                        echo "<a href= '../student/submission.php?id=".$arr[$j]['ID_A']."&courseCode=".$id."&actTitle=".$arr[$j]['title']."'><p class='w3-text-black'><i class='fa fa-pencil' aria-hidden='true'></i>&nbsp;".$arr[$j]['title']."</p></a>";
                          
                     }
                    

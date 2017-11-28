@@ -69,8 +69,8 @@
 			</form>
 			<a href="#">forgot password</a> or <a href="#"> forgot username </a>
 
-			</div>
 		</div>
 		</div>
+	</div>
 	</body>
 </html>
