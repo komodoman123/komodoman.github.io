@@ -4,14 +4,8 @@
 	include ('../../phpScript/startSession.php');
 	include ('../../phpScript/signedIn.php');
 
-	$addType="assignment";
-	$codeCourse="AIF313";
 
-$dir="../uploads\\".$addType."\\".$codeCourse;
-$newname = "../uploads"."\\".$addType."\\".$codeCourse."\\" .
-					"asd.txt";
-echo $dir;
-echo $newname;
+
 	if(isset($_GET['submit'])){
 		$GLOBALS['courseID'] =  $_GET['courseID'];
 		$GLOBALS['topic']  = $_GET['topic'];
@@ -45,42 +39,38 @@ echo $newname;
 			if($_FILES['upfile']['name'] != ""){
 				$oldname = $_FILES['upfile']['tmp_name'];
 				$dir="../../uploads\\".$addType."\\".$codeCourse;
-
-				//$path = 'C:\\xampp\htdocs\TUGAS\IDE\upload\\assignment\\'.$courseCode.'\\';
-				//$path = realpath($path);
-
-				$newname = "../../uploads"."\\".$addType."\\".$codeCourse."\\" .
-			            $_FILES['upfile']['name'];
+				
+						
 			if(!file_exists($dir)){
 				mkdir($dir, 077, true);
 			}
+			$newname = "../../uploads"."\\".$addType."\\".$codeCourse."\\" .$_FILES['upfile']['name'];
 				move_uploaded_file($oldname, $newname);
-				$newname = trim(json_encode($newname, JSON_NUMERIC_CHECK), '"');
+				$dirname = "../../uploads"."\\\\".$addType."\\\\".$codeCourse."\\\\" .$_FILES['upfile']['name'];
+
 			}
 			else{
-				$newname = "";
+				$dirname = "";
 			}
-			$query = "INSERT INTO activities (ID_A, ID_AT, ID_C, dateOpen, dateClose, submissions, title, topic, fileDir) VALUES('', '$act', '$courseID', '$start', '$end', '0', '$name', '$topic', '$newname')";
+			$query = "INSERT INTO activities (ID_A, ID_AT, ID_C, dateOpen, dateClose, submissions, title, topic, fileDir) VALUES('', '$act', '$courseID', '$start', '$end', '0', '$name', '$topic', '$dirname')";
 		}
 		else{
 			if($_FILES['upfile']['name'] != ""){
 				$oldname = $_FILES['upfile']['tmp_name'];
-				$dir="../uploads\\".$addType."\\".$codeCourse;
+				$dir="../../uploads\\".$addType."\\".$codeCourse;
 
-				//$path = 'C:\\xampp\htdocs\TUGAS\IDE\upload\\assignment\\'.$courseCode.'\\';
-				//$path = realpath($path);
+			
 				if(!file_exists($dir)){
 					mkdir($dir, 077, true);
 				}
-				$newname = "../uploads"."\\".$addType."\\".$codeCourse."\\" .
-			            $_FILES['upfile']['name'];
+				$newname = "../../uploads"."\\".$addType."\\".$codeCourse."\\" .$_FILES['upfile']['name'];
 				move_uploaded_file($oldname, $newname);
-				$newname = trim(json_encode($newname, JSON_NUMERIC_CHECK), '"');
+				$dirname = "../../uploads"."\\\\".$addType."\\\\".$codeCourse."\\\\" .$_FILES['upfile']['name'];
 			}
 			else{
-				$newname = "";
+				$dirname = "";
 			}
-			$query = "INSERT INTO activities (ID_A, ID_AT, ID_C, dateOpen, dateClose, submissions, title, topic, fileDir) VALUES('', '$act', '$course', '', '', '', '$name', '$topic', '$newname')";
+			$query = "INSERT INTO activities (ID_A, ID_AT, ID_C, dateOpen, dateClose, submissions, title, topic, fileDir) VALUES('', '$act', '$courseID', '', '', '', '$name', '$topic', '$dirname')";
 			}
 				if($conn->query($query)){
 					header ("Location: course.php?id=$courseID&courseTitle=$courseTitle");
