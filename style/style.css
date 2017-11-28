@@ -11,22 +11,13 @@
 #logo{
     width:150px;
     height:150px;
-    margin-right:100px;
+    margin-right:50px;
     margin-top:10px;
-    float:right;
 }
 
 p, h1, span,a{
     color:black;
     font-family: candara;
-}
-
-#judul{
-    float:left;
-}
-
-#judul h1,p{
-    color:white;
 }
 
 #profilepict{
