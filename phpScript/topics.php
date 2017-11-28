@@ -21,11 +21,18 @@ if(isset($_GET['id'])){
     $arrlength = count($arr);
    
     for($i=1; $i<=10; $i++){
-        echo "<div class='w3-panel w3-card w3-white w3-padding' style='margin:10px;margin-left:26%'>  <p class='w3-text-black'><i class='fa fa-newspaper-o'></i> TOPIC $i</p>";
+        echo "<div class='w3-panel w3-card w3-white' style='margin:10px;margin-left:26%'>  <p class='w3-text-black'><i class='fa fa-newspaper-o'></i> TOPIC $i</p>";
         for($j=1; $j<=$arrlength; $j++){
 
                 if($arr[$j]['topic']==$i){
-                    echo "<p class='w3-text-black'>".$arr[$j]['title']."</p></a>";
+                    if($arr[$j]['ID_AT']==2){
+                        echo "<a href=".$arr[$j]['fileDir']." download=''><p class='w3-text-black'>".$arr[$j]['title']."</p></a>";
+                    }
+                    else{
+                        echo "<a href= 'submission.php?id=".$actID."&courseCode=".$id."'><p>".$row['title']."</p></a>";
+                         
+                    }
+                   
                 }
             
         
